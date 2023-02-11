@@ -1,0 +1,43 @@
+server:
+  port: 9200
+  compression:
+    enabled: true
+spring:
+  jackson:
+    mapper:
+      DEFAULT_VIEW_INCLUSION: true
+  config:
+    import: configserver:http://localhost:8888/?fail-fast=false&max-attempts=60&max-interval=10000&initial-interval=10000
+  application:
+    name: character
+  cloud:
+    config:
+      profile: ${APP_PROFILE:dev}
+      fail-fast: true
+      retry:
+        initial-interval: 10000
+        max-attempts: 60
+        max-interval:  10000
+  datasource:
+    tomcat:
+      max-active: 5
+    hikari:
+      minimum-idle: 3
+      maximum-pool-size: 5
+  flyway:
+    enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        - '*'
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE

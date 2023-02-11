@@ -1,54 +1,69 @@
 package com.detrasoft.characterapi.domain.entities;
 
-import com.detrasoft.framework.crud.entities.AuditedGenericEntity;
-import com.detrasoft.historapp.entities.calendar.HistoricalDate;
-import lombok.Getter;
-import lombok.Setter;
+import com.detrasoft.framework.crud.entities.GenericEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
 
+@Builder
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "character")
-public class Character extends AuditedGenericEntity implements Serializable {
+public class Character extends GenericEntity implements Serializable {
 	
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@Column(nullable = false)
 	private String name;
 
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private String birthPlace;
+	@Column(nullable = false)
+	private String sex;
 
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant birthDate;
-	
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant deathDate;
-	
-	@ManyToMany
-	@JoinTable(name = "character_birth_date", 
-		joinColumns = { @JoinColumn(name = "character_id") }, 
-		inverseJoinColumns = { @JoinColumn(name = "historical_date_id") })
-	private List<HistoricalDate> birthDateCalendars;
-	
-	@ManyToMany
-	@JoinTable(name = "character_death_date", 
-		joinColumns = { @JoinColumn(name = "character_id") }, 
-		inverseJoinColumns = { @JoinColumn(name = "historical_date_id") })
-	private List<HistoricalDate> deathDateCalendars;
+	@Column(nullable = true)
+	private String tags;
 
-	@Override
-	public String toString() {
-		return "Character{" +
-				"name='" + name + '\'' +
-				'}';
-	}
+	@Column(nullable = true)
+	private String comments;
+
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_historical_date_birth", nullable = true, foreignKey = @ForeignKey(name = "fk1_character"))
+	private HistoricalDate birthDate;
+
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_historical_date_death", nullable = true, foreignKey = @ForeignKey(name = "fk2_character"))
+	private HistoricalDate deathDate;
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_father", nullable = true, foreignKey = @ForeignKey(name = "fk3_character"))
+	private Character father;
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_mother", nullable = true, foreignKey = @ForeignKey(name = "fk4_character"))
+	private Character mother;
+
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "character")
+	private List<Note> notes;
+
+	@Column(nullable = false, updatable = false)
+	private Instant createAt;
+
+	@Column(nullable = true)
+	private Instant updateAt;
 }

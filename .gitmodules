@@ -1,3 +1,9 @@
 [submodule "src/submodules/framework-api"]
 	path = src/submodules/framework-api
 	url = https://github.com/michael-souto/framework-api.git
+[submodule "src/submodules/framework-core"]
+	path = src/submodules/framework-core
+	url = https://github.com/michael-souto/framework-core.git
+[submodule "src/submodules/framework-crud"]
+	path = src/submodules/framework-crud
+	url = https://github.com/michael-souto/framework-crud.git
