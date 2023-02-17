@@ -3,21 +3,15 @@ server:
   compression:
     enabled: true
 spring:
+  profiles:
+    active: ${APP_PROFILE:dev}
   jackson:
     mapper:
       DEFAULT_VIEW_INCLUSION: true
   config:
-    import: configserver:http://localhost:8888/?fail-fast=false&max-attempts=60&max-interval=10000&initial-interval=10000
+    import: configserver:http://localhost:8888/?fail-fast=true&max-attempts=60&max-interval=10000&initial-interval=1000
   application:
     name: character
-  cloud:
-    config:
-      profile: ${APP_PROFILE:dev}
-      fail-fast: true
-      retry:
-        initial-interval: 10000
-        max-attempts: 60
-        max-interval:  10000
   datasource:
     tomcat:
       max-active: 5
@@ -26,7 +20,12 @@ spring:
       maximum-pool-size: 5
   flyway:
     enabled: false
-
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
 management:
   endpoints:
     web:
