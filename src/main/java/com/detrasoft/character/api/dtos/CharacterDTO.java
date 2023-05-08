@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.hateoas.server.core.Relation;
 
+import javax.validation.constraints.NotBlank;
 import java.time.Instant;
 
 @Getter
@@ -21,6 +22,7 @@ public class CharacterDTO extends GenericRepresentationModelDTO<CharacterDTO> {
     @JsonView({ResponseView.findAndPersist.class })
     private Long id;
 
+    @NotBlank
     @JsonView(ResponseView.findAndPersist.class)
     private String name;
 
@@ -30,8 +32,15 @@ public class CharacterDTO extends GenericRepresentationModelDTO<CharacterDTO> {
     @JsonView({ResponseView.findById.class, ResponseView.persist.class})
     private String comments;
 
+    @NotBlank
     @JsonView(ResponseView.findAndPersist.class)
     private String sex;
+
+    @JsonView(ResponseView.findById.class)
+    private CharacterDTO father;
+
+    @JsonView(ResponseView.findById.class)
+    private CharacterDTO mother;
 
     @JsonView(ResponseView.findById.class)
     private HistoricalDateDTO birthDate;

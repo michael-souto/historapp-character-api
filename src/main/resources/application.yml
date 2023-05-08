@@ -19,7 +19,7 @@ spring:
       minimum-idle: 3
       maximum-pool-size: 5
   flyway:
-    enabled: false
+    enabled: true
 eureka:
   client:
     register-with-eureka: true
@@ -31,12 +31,6 @@ management:
     web:
       exposure:
         - '*'
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
+authorization:
+  jwt-secret: ${SECRET}
+  security-https: true

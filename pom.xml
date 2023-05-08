@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.9-SNAPSHOT</version>
+		<version>2.7.12-SNAPSHOT</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.detrasoft</groupId>
@@ -86,10 +86,29 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 
-		<!-- DEPÊNDENCIAS DO ACTUATOR PARA MONITORAMENTO DE NUVEM -->
+		<!-- Documentation OpenAPI Swagger dependency -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.6.14</version>
+		</dependency>
+		<!-- Documentation OpenAPI Swagger dependency -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-hateoas</artifactId>
+			<version>1.6.14</version>
+		</dependency>
+
+		<!-- Actuator for monitoring dependency -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<!-- Security dependency -->
+		<dependency>
+			<groupId>org.springframework.security.oauth.boot</groupId>
+			<artifactId>spring-security-oauth2-autoconfigure</artifactId>
 		</dependency>
 
 	</dependencies>
@@ -128,6 +147,8 @@
 								<source>src/submodules/framework-core/src/main/java</source>
 								<source>src/submodules/framework-api/src/main/java</source>
 								<source>src/submodules/framework-crud/src/main/java</source>
+								<source>src/submodules/framework-security/src/main/java</source>
+								<source>src/submodules/framework-multitenant/src/main/java</source>
 							</sources>
 						</configuration>
 					</execution>

@@ -22,6 +22,26 @@ public class CharacterCRUDService extends GenericCRUDService<Character> {
         super(repository);
     }
 
+    public Character setMother(Long idCharacter, Long idMother) {
+        var characterFound = this.findById(idCharacter);
+        if (idMother != null) {
+            var motherFound = this.findById(idMother);
+            characterFound.setMother(motherFound);
+        } else {
+            characterFound.setMother(null);
+        }
+        return repository.save(characterFound);
+    }
+    public Character setFather(Long idCharacter, Long idFather) {
+        var characterFound = this.findById(idCharacter);
+        if (idFather != null) {
+            var fatherFound = this.findById(idFather);
+            characterFound.setFather(fatherFound);
+        } else {
+            characterFound.setFather(null);
+        }
+        return repository.save(characterFound);
+    }
     public Character setDeathDate(Long idCharacter, HistoricalDate historicalDate) {
         var characterFound = this.findById(idCharacter);
         var date = characterFound.getDeathDate();

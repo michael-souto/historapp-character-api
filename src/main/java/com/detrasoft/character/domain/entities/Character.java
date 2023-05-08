@@ -58,9 +58,6 @@ public class Character extends GenericEntity implements Serializable {
 	@JoinColumn(name = "id_mother", nullable = true, foreignKey = @ForeignKey(name = "fk4_character"))
 	private Character mother;
 
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "character")
-	private List<Note> notes;
-
 	@Column(nullable = false, updatable = false)
 	private Instant createAt;
 
