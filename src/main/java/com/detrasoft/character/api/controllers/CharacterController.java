@@ -1,9 +1,7 @@
 package com.detrasoft.character.api.controllers;
 
 import com.detrasoft.character.api.assemblers.CharacterAssembler;
-import com.detrasoft.character.api.converters.HistoricalDateConverter;
 import com.detrasoft.character.api.dtos.CharacterDTO;
-import com.detrasoft.character.api.dtos.HistoricalDateDTO;
 import com.detrasoft.character.domain.crud.CharacterCRUDService;
 import com.detrasoft.character.domain.repositories.CharacterRepository;
 import com.detrasoft.framework.api.controllers.hateoas.GenericHateoasCRUDController;
@@ -11,17 +9,16 @@ import com.detrasoft.framework.api.controllers.jackson.ResponseView;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/character")
 public class CharacterController extends GenericHateoasCRUDController<CharacterDTO> {
-
-    @Autowired
-    private HistoricalDateConverter historicalDateConverter;
 
     @Autowired
     private CharacterRepository characterRepository;
