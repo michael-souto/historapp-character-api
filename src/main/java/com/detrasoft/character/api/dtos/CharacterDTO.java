@@ -36,10 +36,10 @@ public class CharacterDTO extends GenericRepresentationModelDTO<CharacterDTO> {
     @JsonView(ResponseView.findAndPersist.class)
     private String sex;
 
-    @JsonView(ResponseView.findById.class)
+    @JsonView({ResponseView.findById.class, ResponseView.findAll.class})
     private CharacterDTO father;
 
-    @JsonView(ResponseView.findById.class)
+    @JsonView({ResponseView.findById.class, ResponseView.findAll.class})
     private CharacterDTO mother;
 
     @JsonView(ResponseView.findById.class)
